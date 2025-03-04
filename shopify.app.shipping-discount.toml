@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "fc6608be42beb6e742a146acd2822951"
-application_url = "https://mapping-brook-radio-determined.trycloudflare.com"
+application_url = "https://ser-intranet-cause-extends.trycloudflare.com"
 embedded = true
 name = "shipping-discount"
 handle = "shipping-discount-82"
@@ -19,9 +19,9 @@ scopes = "read_products,write_discounts,write_discounts_allocator_functions,writ
 
 [auth]
 redirect_urls = [
-  "https://mapping-brook-radio-determined.trycloudflare.com/auth/callback",
-  "https://mapping-brook-radio-determined.trycloudflare.com/auth/shopify/callback",
-  "https://mapping-brook-radio-determined.trycloudflare.com/api/auth/callback"
+  "https://ser-intranet-cause-extends.trycloudflare.com/auth/callback",
+  "https://ser-intranet-cause-extends.trycloudflare.com/auth/shopify/callback",
+  "https://ser-intranet-cause-extends.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

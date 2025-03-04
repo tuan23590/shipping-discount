@@ -1,0 +1,12 @@
+query RunInput {
+  cart {
+    deliveryGroups {
+      deliveryOptions {
+        title
+        handle
+      }
+    }
+  }
+}
+
+# shopify app function typegen
