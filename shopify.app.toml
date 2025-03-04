@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "13b500c8597a93916982d07819a4eec7"
-application_url = "https://energy-completion-palestine-adapted.trycloudflare.com"
+application_url = "https://competition-fold-holiday-mt.trycloudflare.com"
 embedded = true
 name = "fucking-discount"
 handle = "shipping-discount-82"
@@ -27,9 +27,9 @@ scopes = "write_products, write_discounts, write_discounts_allocator_functions, 
 
 [auth]
 redirect_urls = [
-  "https://energy-completion-palestine-adapted.trycloudflare.com/auth/callback",
-  "https://energy-completion-palestine-adapted.trycloudflare.com/auth/shopify/callback",
-  "https://energy-completion-palestine-adapted.trycloudflare.com/api/auth/callback"
+  "https://competition-fold-holiday-mt.trycloudflare.com/auth/callback",
+  "https://competition-fold-holiday-mt.trycloudflare.com/auth/shopify/callback",
+  "https://competition-fold-holiday-mt.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

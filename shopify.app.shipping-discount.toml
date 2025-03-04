@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "fc6608be42beb6e742a146acd2822951"
+application_url = "https://mapping-brook-radio-determined.trycloudflare.com"
+embedded = true
+name = "shipping-discount"
+handle = "shipping-discount-82"
+
+[build]
+include_config_on_deploy = true
+automatically_update_urls_on_dev = true
+
+[webhooks]
+api_version = "2025-01"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_products,write_discounts,write_discounts_allocator_functions,write_products"
+
+[auth]
+redirect_urls = [
+  "https://mapping-brook-radio-determined.trycloudflare.com/auth/callback",
+  "https://mapping-brook-radio-determined.trycloudflare.com/auth/shopify/callback",
+  "https://mapping-brook-radio-determined.trycloudflare.com/api/auth/callback"
+]
+
+[pos]
+embedded = false
