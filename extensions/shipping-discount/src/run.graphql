@@ -1,10 +1,30 @@
 query RunInput {
   cart {
+    lines {
+      quantity
+      merchandise {
+        ... on ProductVariant {
+          weight
+          weightUnit
+        }
+      }
+    }
+    cost {
+      subtotalAmount {
+        amount
+        currencyCode
+      }
+    }
     deliveryGroups {
       deliveryOptions {
         title
         handle
       }
+    }
+  }
+  discountNode {
+    metafield(key: "function-configuration", namespace: "default") {
+      value
     }
   }
 }

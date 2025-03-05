@@ -14,12 +14,17 @@ import {
   CartIcon,
   CheckCircleIcon,
   CollectionIcon,
+  MeasurementWeightIcon,
+  PlusCircleIcon,
   PlusIcon,
   ProductIcon,
 } from "@shopify/polaris-icons";
 import { produce } from "immer";
 import TotalAmount from "./Condition/TotalAmount";
-export default function BasedOn() {
+import SubtotalAmount from "./Condition/SubtotalAmount";
+import TotalWeight from "./Condition/TotalWeight";
+import TotalQuantity from "./Condition/TotalQuantity";
+export default function BasedOn({ discountValue, setDiscountValue }) {
   const [active, setActive] = useState(false);
 
   const toggleActive = useCallback(() => setActive((active) => !active), []);
@@ -29,6 +34,14 @@ export default function BasedOn() {
     setSelectedsCondition(
       produce(selectedsCondition, (draft) => {
         draft[0] = value;
+      }),
+    );
+    setDiscountValue(
+      produce(discountValue, (draft) => {
+        draft.metafields[0].value = {
+          type: value,
+          data: {}
+        }
       }),
     );
     setActive(false);
@@ -57,7 +70,12 @@ export default function BasedOn() {
           icon: CartIcon,
           id: "totalAmount",
           onAction: () => handleSelectCondition("totalAmount"),
-          component: <TotalAmount />,
+          component: (
+            <TotalAmount
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
         },
         {
           content: "Subtotal amount",
@@ -66,6 +84,40 @@ export default function BasedOn() {
           icon: CartIcon,
           id: "subtotalAmount",
           onAction: () => handleSelectCondition("subtotalAmount"),
+          component: (
+            <SubtotalAmount
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
+        },
+        {
+          content: "Total weight",
+          helpText:
+            "Based on the total weight of the cart",
+          icon: MeasurementWeightIcon,
+          id: "totalWeight",
+          onAction: () => handleSelectCondition("totalWeight"),
+          component: (
+            <TotalWeight
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
+        },
+        {
+          content: "Total quantity",
+          helpText:
+            "Based on the total quantiy of the cart",
+          icon: PlusCircleIcon,
+          id: "totalQuantity",
+          onAction: () => handleSelectCondition("totalQuantity"),
+          component: (
+            <TotalQuantity
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
         },
       ],
     },

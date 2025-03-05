@@ -10,18 +10,18 @@ import { produce } from "immer";
 import React, { useState } from "react";
 
 export default function MaximumDiscount({
-  basicCodeDiscount,
-  setBasicCodeDiscount,
+  discountValue,
+  setDiscountValue,
 }) {
   const [showUsageLimit, setShowUsageLimit] = useState(
-    basicCodeDiscount.usageLimit !== undefined,
+    discountValue.usageLimit !== undefined,
   );
 
   function handleUsageLimitVisibilityChange() {
     setShowUsageLimit(
       produce((draft) => {
         if (draft) {
-          delete basicCodeDiscount.usageLimit;
+          delete discountValue.usageLimit;
         }
         return !draft;
       }),
@@ -29,7 +29,7 @@ export default function MaximumDiscount({
   }
 
   function handleAppliesOncePerCustomerChange() {
-    setBasicCodeDiscount(
+    setDiscountValue(
       produce((draft) => {
         draft.appliesOncePerCustomer = !draft.appliesOncePerCustomer;
       }),
@@ -37,7 +37,7 @@ export default function MaximumDiscount({
   }
 
   function handleUsageLimitChange(value) {
-    setBasicCodeDiscount(
+    setDiscountValue(
       produce((draft) => {
         const parsedValue = parseInt(value || 0);
         if (parsedValue === 0) {
@@ -66,14 +66,14 @@ export default function MaximumDiscount({
           {showUsageLimit && (
             <TextField
               type="number"
-              value={basicCodeDiscount.usageLimit}
+              value={discountValue.usageLimit}
               onChange={handleUsageLimitChange}
               autoFocus
             />
           )}
           <Checkbox
             label="Limit to one use per customer"
-            checked={basicCodeDiscount.appliesOncePerCustomer}
+            checked={discountValue.appliesOncePerCustomer}
             onChange={handleAppliesOncePerCustomerChange}
           />
         </BlockStack>

@@ -1,8 +1,8 @@
-import { BlockStack, Select, TextField } from "@shopify/polaris";
-import React, { useEffect } from "react";
+import { BlockStack, Icon, InlineGrid, Select, TextField } from "@shopify/polaris";
 import { produce } from "immer";
+import React, { useEffect } from "react";
 
-export default function TotalAmount({ discountValue, setDiscountValue }) {
+export default function SubtotalAmount({ discountValue, setDiscountValue }) {
   function handleOperatorChange(value) {
     setDiscountValue(
       produce(discountValue, (draft) => {
@@ -14,7 +14,7 @@ export default function TotalAmount({ discountValue, setDiscountValue }) {
   function handleValueChange(value) {
     setDiscountValue(
       produce(discountValue, (draft) => {
-        draft.metafields[0].value.data.value = value;  
+        draft.metafields[0].value.data.value = value;
       }),
     );
   }
@@ -39,13 +39,15 @@ export default function TotalAmount({ discountValue, setDiscountValue }) {
           { label: "is not equal to", value: "notEqual" },
         ]}
         onChange={handleOperatorChange}
-        value={discountValue.metafields[0].value.data.operator}
+        value={discountValue.metafields[0].value.data.operator }
       />
       <TextField
-        label="Value"
+        label="Value (USD)"
         type="number"
         value={discountValue.metafields[0].value.data.value}
         onChange={handleValueChange}
+        prefix="$"
+        helpText="We just support USD currency"
       />
     </BlockStack>
   );

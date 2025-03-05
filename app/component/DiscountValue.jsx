@@ -9,18 +9,18 @@ import {
 import { produce } from "immer";
 import React, { useCallback, useState } from "react";
 
-export default function DiscountValue({ basicCodeDiscount, setBasicCodeDiscount }) {
+export default function DiscountValue({ discountValue, setDiscountValue }) {
   const [discountType, setDiscountType] = useState("percentage");
 
     const handleCustomerPercentageChange = useCallback(
     (value) => {
-      setBasicCodeDiscount(
-        produce((draft) => {
-          draft.customerGets.value.percentage = value / 100;
-        }),
-      );
+      // setDiscountValue(
+      //   produce((draft) => {
+      //     draft.customerGets.value.percentage = value / 100;
+      //   }),
+      // );
     },
-    [setBasicCodeDiscount],
+    [setDiscountValue],
     );
 
   const handleDiscountTypeChange = useCallback(
@@ -56,7 +56,7 @@ export default function DiscountValue({ basicCodeDiscount, setBasicCodeDiscount 
               discountType === "flatRate" &&
               "Always lower than the actual shipping cost."
             }
-            value={basicCodeDiscount.customerGets.value.percentage * 100}
+            // value={discountValue.customerGets.value.percentage * 100}
             onChange={handleCustomerPercentageChange}
           />
         </BlockStack>

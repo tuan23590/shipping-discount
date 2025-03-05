@@ -12,8 +12,8 @@ import { generateRandomCode } from "../utils";
 import { produce } from "immer";
 
 export default function AmountOffShipping({
-  setBasicCodeDiscount,
-  basicCodeDiscount,
+  setDiscountValue,
+  discountValue,
 }) {
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
 
@@ -27,17 +27,19 @@ export default function AmountOffShipping({
 
   function handeleGenerateRandomCode() {
     const generateCode = generateRandomCode();
-    setBasicCodeDiscount(
+    setDiscountValue(
       produce((draft) => {
         draft.code = generateCode;
+        draft.title = generateCode;
       }),
     );
   }
 
   const handleCodeChange = useCallback((value) => {
-    setBasicCodeDiscount(
+    setDiscountValue(
       produce((draft) => {
         draft.code = value;
+        draft.title = value;
       }),
     );
   }, []);
@@ -72,7 +74,7 @@ export default function AmountOffShipping({
               onAction: handeleGenerateRandomCode,
             }}
             helpText="Customers must enter this code at checkout."
-            value={basicCodeDiscount.code}
+            value={discountValue.code}
             onChange={handleCodeChange}
           />
         </BlockStack>

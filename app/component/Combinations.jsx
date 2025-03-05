@@ -3,12 +3,12 @@ import { produce } from "immer";
 import React from "react";
 
 export default function Combinations({
-  basicCodeDiscount,
-  setBasicCodeDiscount,
+  discountValue,
+  setDiscountValue,
 }) {
   function handleProductDiscountsChange() {
-    setBasicCodeDiscount(
-      produce(basicCodeDiscount, (draft) => {
+    setDiscountValue(
+      produce(discountValue, (draft) => {
         draft.combinesWith.productDiscounts =
           !draft.combinesWith.productDiscounts;
       }),
@@ -16,8 +16,8 @@ export default function Combinations({
   }
 
   function handleOrderDiscountsChange() {
-    setBasicCodeDiscount(
-      produce(basicCodeDiscount, (draft) => {
+    setDiscountValue(
+      produce(discountValue, (draft) => {
         draft.combinesWith.orderDiscounts = !draft.combinesWith.orderDiscounts;
       }),
     );
@@ -35,12 +35,12 @@ export default function Combinations({
           <Text>This discount discount can be combined with:</Text>
           <Checkbox
             label="Product discounts"
-            checked={basicCodeDiscount.combinesWith.productDiscounts}
+            checked={discountValue.combinesWith.productDiscounts}
             onChange={handleProductDiscountsChange}
           />
           <Checkbox
             label="Order discounts"
-            checked={basicCodeDiscount.combinesWith.orderDiscounts}
+            checked={discountValue.combinesWith.orderDiscounts}
             onChange={handleOrderDiscountsChange}
           />
         </BlockStack>

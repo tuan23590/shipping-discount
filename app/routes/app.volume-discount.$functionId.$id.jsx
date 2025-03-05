@@ -2,7 +2,7 @@ import { BlockStack, Box, Layout, Page } from "@shopify/polaris";
 import React, { useState } from "react";
 
 import { authenticate } from "../shopify.server";
-import { redirect, useFetcher } from "@remix-run/react";
+import { redirect, useFetcher, useLoaderData } from "@remix-run/react";
 import AmountOffShipping from "../component/AmountOffShipping";
 import ShippingMethods from "../component/ShippingMethods";
 import BasedOn from "../component/BasedOn";
@@ -11,11 +11,11 @@ import MaximumDiscount from "../component/MaximumDiscount";
 import Combinations from "../component/Combinations";
 import ActiveDates from "../component/ActiveDates";
 import Summary from "../component/Summary";
+import { produce } from "immer";
 
 export const loader = async ({ params }) => {
   const { functionId, id } = params;
-  // Fetch existing discount data if `id` is not "new"
-  return { title: "Sample Discount", value: "10%" }; // Replace with actual API call
+  return { functionId, id };
 };
 
 export const action = async ({ request, params }) => {
@@ -26,32 +26,21 @@ export const action = async ({ request, params }) => {
 
   const data = JSON.parse(formData);
 
-  console.log('data', data)
-
   const response = await admin.graphql(
-    `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
-    discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
-      codeDiscountNode {
-        codeDiscount {
-          ... on DiscountCodeBasic {
-            title
-            codes(first: 10) {
-              nodes {
-                code
-              }
-            }
-          }
+    `mutation CreateDiscountCodeApp($DiscountCodeAppInput: DiscountCodeAppInput!) {
+      discountCodeAppCreate(codeAppDiscount: $DiscountCodeAppInput) {
+        codeAppDiscount {
+          discountId
+        }
+        userErrors {
+          field
+          message
         }
       }
-      userErrors {
-        field
-        message
-      }
-    }
-  }`,
+    }`,
     {
       variables: {
-        basicCodeDiscount: {
+        DiscountCodeAppInput: {
           ...data,
         },
       },
@@ -68,19 +57,26 @@ export const action = async ({ request, params }) => {
 };
 
 export default function ShippingPage() {
-  const [basicCodeDiscount, setBasicCodeDiscount] = useState({
-    title: "20% off all items during summer",
+  const { functionId, id } = useLoaderData();
+
+  const [discountValue, setDiscountValue] = useState({
+    functionId,
     code: "",
+    title: "",
     startsAt: new Date().toISOString(),
-    // endsAt
-    customerSelection: { all: true },
-    customerGets: {
-      value: { percentage: 0.2 },
-      items: { all: true },
-    },
-    minimumRequirement: {},
+    metafields: [
+      {
+        namespace: "default",
+        key: "function-configuration",
+        type: "json",
+        value: {
+          type: "",
+          data: {}
+        }
+      }
+    ],
     appliesOncePerCustomer: true,
-    // usageLimit
+    // usageLimit:2,
     combinesWith: {
       productDiscounts: false,
       orderDiscounts: false,
@@ -91,7 +87,9 @@ export default function ShippingPage() {
 
   const handleCreateDiscount = () =>
     fetcher.submit(
-      { formData: JSON.stringify(basicCodeDiscount) },
+      { formData: JSON.stringify(produce(discountValue, (draft) => {
+        draft.metafields[0].value = JSON.stringify(discountValue.metafields[0].value);
+      })) },
       { method: "POST" },
     );
 
@@ -115,26 +113,29 @@ export default function ShippingPage() {
         <Layout.Section>
           <BlockStack gap="300">
             <AmountOffShipping
-              setBasicCodeDiscount={setBasicCodeDiscount}
-              basicCodeDiscount={basicCodeDiscount}
+              setDiscountValue={setDiscountValue}
+              discountValue={discountValue}
             />
             <ShippingMethods />
-            <BasedOn />
+            <BasedOn
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
             <DiscountValue
-              setBasicCodeDiscount={setBasicCodeDiscount}
-              basicCodeDiscount={basicCodeDiscount}
+              setDiscountValue={setDiscountValue}
+              discountValue={discountValue}
             />
             <MaximumDiscount
-              basicCodeDiscount={basicCodeDiscount}
-              setBasicCodeDiscount={setBasicCodeDiscount}
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
             />
             <Combinations
-              basicCodeDiscount={basicCodeDiscount}
-              setBasicCodeDiscount={setBasicCodeDiscount}
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
             />
             <ActiveDates
-              basicCodeDiscount={basicCodeDiscount}
-              setBasicCodeDiscount={setBasicCodeDiscount}
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
             />
           </BlockStack>
         </Layout.Section>

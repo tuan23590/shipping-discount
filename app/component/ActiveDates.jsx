@@ -16,20 +16,20 @@ import React, { useState } from "react";
 import { DateTime } from "luxon"; // Thêm Luxon
 
 export default function ActiveDates({
-  basicCodeDiscount,
-  setBasicCodeDiscount,
+  discountValue,
+  setDiscountValue,
 }) {
-  // Khởi tạo trạng thái ngày và giờ ở EST từ basicCodeDiscount
-  const initialStart = DateTime.fromISO(basicCodeDiscount.startsAt, { zone: "utc" }).setZone("America/New_York");
-  const initialEnd = basicCodeDiscount.endsAt
-    ? DateTime.fromISO(basicCodeDiscount.endsAt, { zone: "utc" }).setZone("America/New_York")
+  // Khởi tạo trạng thái ngày và giờ ở EST từ discountValue
+  const initialStart = DateTime.fromISO(discountValue.startsAt, { zone: "utc" }).setZone("America/New_York");
+  const initialEnd = discountValue.endsAt
+    ? DateTime.fromISO(discountValue.endsAt, { zone: "utc" }).setZone("America/New_York")
     : null;
 
   const [visibleStart, setVisibleStart] = useState(false);
   const [visibleEnd, setVisibleEnd] = useState(false);
   const [showStartTimes, setShowStartTimes] = useState(false);
   const [showEndTimes, setShowEndTimes] = useState(false);
-  const [endDiscountCheck, setEndDiscountCheck] = useState(basicCodeDiscount.endsAt !== undefined);
+  const [endDiscountCheck, setEndDiscountCheck] = useState(discountValue.endsAt !== undefined);
 
   // Trạng thái ngày và giờ ở EST
   const [startEstDate, setStartEstDate] = useState(initialStart.toFormat("yyyy-MM-dd"));
@@ -65,8 +65,8 @@ export default function ActiveDates({
     setStartEstDate(estDateTime.toFormat("yyyy-MM-dd"));
 
     // Chuyển sang UTC và lưu
-    setBasicCodeDiscount(
-      produce(basicCodeDiscount, (draft) => {
+    setDiscountValue(
+      produce(discountValue, (draft) => {
         draft.startsAt = estDateTime.toUTC().toISO();
       })
     );
@@ -87,8 +87,8 @@ export default function ActiveDates({
     setEndEstDate(estDateTime.toFormat("yyyy-MM-dd"));
 
     // Chuyển sang UTC và lưu
-    setBasicCodeDiscount(
-      produce(basicCodeDiscount, (draft) => {
+    setDiscountValue(
+      produce(discountValue, (draft) => {
         draft.endsAt = estDateTime.toUTC().toISO();
       })
     );
@@ -109,16 +109,16 @@ export default function ActiveDates({
 
     if (isStart) {
       setStartEstTime(estDateTime.toFormat("HH:mm"));
-      setBasicCodeDiscount(
-        produce(basicCodeDiscount, (draft) => {
+      setDiscountValue(
+        produce(discountValue, (draft) => {
           draft.startsAt = estDateTime.toUTC().toISO();
         })
       );
       setShowStartTimes(false);
     } else {
       setEndEstTime(estDateTime.toFormat("HH:mm"));
-      setBasicCodeDiscount(
-        produce(basicCodeDiscount, (draft) => {
+      setDiscountValue(
+        produce(discountValue, (draft) => {
           draft.endsAt = estDateTime.toUTC().toISO();
         })
       );
@@ -133,14 +133,14 @@ export default function ActiveDates({
         const nowEst = DateTime.now().setZone("America/New_York");
         setEndEstDate(nowEst.toFormat("yyyy-MM-dd"));
         setEndEstTime(nowEst.toFormat("HH:mm"));
-        setBasicCodeDiscount(
-          produce(basicCodeDiscount, (draft) => {
+        setDiscountValue(
+          produce(discountValue, (draft) => {
             draft.endsAt = nowEst.toUTC().toISO();
           })
         );
       } else {
-        setBasicCodeDiscount(
-          produce(basicCodeDiscount, (draft) => {
+        setDiscountValue(
+          produce(discountValue, (draft) => {
             delete draft.endsAt;
           })
         );

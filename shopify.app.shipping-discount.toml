@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "fc6608be42beb6e742a146acd2822951"
-application_url = "https://ser-intranet-cause-extends.trycloudflare.com"
+application_url = "https://planned-yukon-finals-circus.trycloudflare.com"
 embedded = true
 name = "shipping-discount"
 handle = "shipping-discount-82"
@@ -19,9 +19,9 @@ scopes = "read_products,write_discounts,write_discounts_allocator_functions,writ
 
 [auth]
 redirect_urls = [
-  "https://ser-intranet-cause-extends.trycloudflare.com/auth/callback",
-  "https://ser-intranet-cause-extends.trycloudflare.com/auth/shopify/callback",
-  "https://ser-intranet-cause-extends.trycloudflare.com/api/auth/callback"
+  "https://planned-yukon-finals-circus.trycloudflare.com/auth/callback",
+  "https://planned-yukon-finals-circus.trycloudflare.com/auth/shopify/callback",
+  "https://planned-yukon-finals-circus.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
