@@ -14,6 +14,8 @@ import {
   CartIcon,
   CheckCircleIcon,
   CollectionIcon,
+  CurrencyConvertIcon,
+  EditIcon,
   MeasurementWeightIcon,
   PlusCircleIcon,
   PlusIcon,
@@ -24,6 +26,8 @@ import TotalAmount from "./Condition/TotalAmount";
 import SubtotalAmount from "./Condition/SubtotalAmount";
 import TotalWeight from "./Condition/TotalWeight";
 import TotalQuantity from "./Condition/TotalQuantity";
+import CartCurrency from "./Condition/CartCurrency";
+import CartAttribute from "./Condition/CartAttribute";
 export default function BasedOn({ discountValue, setDiscountValue }) {
   const [active, setActive] = useState(false);
 
@@ -54,7 +58,7 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
         {
           content: "Always",
           helpText:
-            "Don't check any rules/conditions, discounts are always available at checkout",
+            "Don't check any rules/conditions, discounts are always available at checkout ✅",
           icon: CheckCircleIcon,
           id: "always",
           onAction: () => handleSelectCondition("always"),
@@ -66,7 +70,7 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
       items: [
         {
           content: "Total Amount",
-          helpText: "Based on the total value of the cart",
+          helpText: "Based on the total value of the cart ✅",
           icon: CartIcon,
           id: "totalAmount",
           onAction: () => handleSelectCondition("totalAmount"),
@@ -80,7 +84,7 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
         {
           content: "Subtotal amount",
           helpText:
-            "Based on the total value of the cart, before taxes and discounts",
+            "Based on the total value of the cart, before taxes and discounts ✅",
           icon: CartIcon,
           id: "subtotalAmount",
           onAction: () => handleSelectCondition("subtotalAmount"),
@@ -94,7 +98,7 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
         {
           content: "Total weight",
           helpText:
-            "Based on the total weight of the cart",
+            "Based on the total weight of the cart ✅",
           icon: MeasurementWeightIcon,
           id: "totalWeight",
           onAction: () => handleSelectCondition("totalWeight"),
@@ -108,12 +112,40 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
         {
           content: "Total quantity",
           helpText:
-            "Based on the total quantiy of the cart",
+            "Based on the total quantiy of the cart ❌",
           icon: PlusCircleIcon,
           id: "totalQuantity",
           onAction: () => handleSelectCondition("totalQuantity"),
           component: (
             <TotalQuantity
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
+        },
+        {
+          content: "Cart currency",
+          helpText:
+            "Based on the cart currency ✅",
+          icon: CurrencyConvertIcon,
+          id: "cartCurrency",
+          onAction: () => handleSelectCondition("cartCurrency"),
+          component: (
+            <CartCurrency
+              discountValue={discountValue}
+              setDiscountValue={setDiscountValue}
+            />
+          ),
+        },
+        {
+          content: "Cart attribute",
+          helpText:
+            "Based on the cart attribute: cart note, attributes to collect more information... ❌",
+          icon: EditIcon,
+          id: "cartAttribute",
+          onAction: () => handleSelectCondition("cartAttribute"),
+          component: (
+            <CartAttribute
               discountValue={discountValue}
               setDiscountValue={setDiscountValue}
             />
@@ -126,14 +158,14 @@ export default function BasedOn({ discountValue, setDiscountValue }) {
       items: [
         {
           content: "Collection",
-          helpText: "Based on the collectionst",
+          helpText: "Based on the collectionst ❌",
           icon: CollectionIcon,
           id: "collection",
           onAction: () => handleSelectCondition("collection"),
         },
         {
           content: "Product tags",
-          helpText: "Based on the product tags",
+          helpText: "Based on the product tags ❌",
           icon: ProductIcon,
           id: "productTags",
           onAction: () => handleSelectCondition("productTags"),

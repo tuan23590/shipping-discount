@@ -61,10 +61,35 @@ export function handleTotalWeight(cart, data) {
 }
 
 /**
+ * Handle cart currency condition
+ * @param {Object} cart - Cart object containing cost information
+ * @param {Object} data - Data object containing operator and value
+ * @returns {boolean} - Whether the condition is met
+ */
+export function handleCartCurrency(cart, data) {
+  const cartCurrency = cart.cost.subtotalAmount.currencyCode;
+  const currencies = data.currencies;
+  const operator = data.operator;
+  if (operator === "contains") {
+    return currencies.includes(cartCurrency);
+  } else if (operator === "doesNotContain") {
+    return !currencies.includes(cartCurrency);
+  }
+  return false;
+}
+
+// always return true
+export function handleAlways(cart, data) {
+  return true;
+}
+
+/**
  * Map of type handlers for different discount conditions
  */
 export const TYPE_HANDLERS = {
   totalAmount: handleTotalAmount,
   subtotalAmount: handleSubtotalAmount,
   totalWeight: handleTotalWeight,
+  always: handleAlways,
+  cartCurrency: handleCartCurrency,
 };
