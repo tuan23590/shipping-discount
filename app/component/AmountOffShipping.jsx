@@ -58,19 +58,19 @@ export default function AmountOffShipping({
               onClick={() => handleButtonClick(0)}
               pressed={activeButtonIndex === 0}
             >
-              Discount code
+              Discount code ✅
             </Button>
             <Button
               onClick={() => handleButtonClick(1)}
               pressed={activeButtonIndex === 1}
             >
-              Automatic discount
+              Automatic discount ❌
             </Button>
           </ButtonGroup>
           <TextField
-            label="Discount code"
+            label="Discount code ✅"
             labelAction={{
-              content: "Generate random code",
+              content: "Generate random code ✅",
               onAction: handeleGenerateRandomCode,
             }}
             helpText="Customers must enter this code at checkout."

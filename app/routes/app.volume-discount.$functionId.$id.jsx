@@ -70,10 +70,10 @@ export default function ShippingPage() {
         key: "function-configuration",
         type: "json",
         value: {
-          type: "",
-          data: {}
-        }
-      }
+          operator: "AND",
+          value: [{ type: "always", data: {} }],
+        },
+      },
     ],
     appliesOncePerCustomer: true,
     // usageLimit:2,
@@ -87,9 +87,15 @@ export default function ShippingPage() {
 
   const handleCreateDiscount = () =>
     fetcher.submit(
-      { formData: JSON.stringify(produce(discountValue, (draft) => {
-        draft.metafields[0].value = JSON.stringify(discountValue.metafields[0].value);
-      })) },
+      {
+        formData: JSON.stringify(
+          produce(discountValue, (draft) => {
+            draft.metafields[0].value = JSON.stringify(
+              discountValue.metafields[0].value,
+            );
+          }),
+        ),
+      },
       { method: "POST" },
     );
 

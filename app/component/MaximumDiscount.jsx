@@ -54,7 +54,7 @@ export default function MaximumDiscount({
       <BlockStack gap="600">
         <InlineGrid columns="1fr auto">
           <Text as="h2" variant="headingSm">
-            Maximum discount uses
+            Maximum discount uses ✅
           </Text>
         </InlineGrid>
         <BlockStack gap="100">

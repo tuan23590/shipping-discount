@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { produce } from 'immer'
 import { BlockStack, Select, TextField } from '@shopify/polaris'
 
-export default function TotalQuantity({ discountValue, setDiscountValue }) {
+export default function TotalQuantity({ discountValue, setDiscountValue, index }) {
     function handleOperatorChange(value) {
         setDiscountValue(
           produce(discountValue, (draft) => {
-            draft.metafields[0].value.data.operator = value;
+            draft.metafields[0].value.value[index].data.operator = value;
           }),
         );
       }
@@ -14,7 +14,7 @@ export default function TotalQuantity({ discountValue, setDiscountValue }) {
       function handleValueChange(value) {
         setDiscountValue(
           produce(discountValue, (draft) => {
-            draft.metafields[0].value.data.value = value;
+            draft.metafields[0].value.value[index].data.value = value;
           }),
         );
       }
@@ -22,8 +22,8 @@ export default function TotalQuantity({ discountValue, setDiscountValue }) {
       useEffect(() => {
         setDiscountValue(
           produce(discountValue, (draft) => {
-            draft.metafields[0].value.data.operator = "greater";
-            draft.metafields[0].value.data.value = 0;
+            draft.metafields[0].value.value[index].data.operator = "greater";
+            draft.metafields[0].value.value[index].data.value = 0;
           }),
         );
       }, []);
@@ -39,12 +39,12 @@ export default function TotalQuantity({ discountValue, setDiscountValue }) {
               { label: "is not equal to", value: "notEqual" },
             ]}
             onChange={handleOperatorChange}
-            value={discountValue.metafields[0].value.data.operator }
+            value={discountValue.metafields[0].value.value[index].data.operator }
           />
           <TextField
             label="Value"
             type="number"
-            value={discountValue.metafields[0].value.data.value}
+            value={discountValue.metafields[0].value.value[index].data.value}
             onChange={handleValueChange}
           />
         </BlockStack>

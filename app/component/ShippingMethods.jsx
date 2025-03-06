@@ -29,7 +29,7 @@ export default function ShippingMethods() {
       <BlockStack gap="600">
         <InlineGrid columns="1fr auto">
           <Text as="h2" variant="headingSm">
-            Applies discount to Shipping methods
+            Applies discount to Shipping methods ❌
           </Text>
         </InlineGrid>
         <Select

@@ -9,11 +9,11 @@ import { produce } from "immer";
 import React, { useEffect, useState, useMemo } from "react";
 import deselectedOptions from "../../data";
 
-export default function CartCurrency({ discountValue, setDiscountValue }) {
+export default function CartCurrency({ discountValue, setDiscountValue, index }) {
   function handleOperatorChange(value) {
     setDiscountValue(
       produce(discountValue, (draft) => {
-        draft.metafields[0].value.data.operator = value;
+        draft.metafields[0].value.value[index].data.operator = value;
       }),
     );
   }
@@ -25,7 +25,7 @@ export default function CartCurrency({ discountValue, setDiscountValue }) {
   useEffect(() => {
     setDiscountValue(
       produce(discountValue, (draft) => {
-        draft.metafields[0].value.data.currencies = selectedOptions;
+        draft.metafields[0].value.value[index].data.currencies = selectedOptions;
       }),
     );
   }, [selectedOptions]);
@@ -34,8 +34,8 @@ export default function CartCurrency({ discountValue, setDiscountValue }) {
   useEffect(() => {
     setDiscountValue(
       produce(discountValue, (draft) => {
-        draft.metafields[0].value.data.operator = "contains";
-        draft.metafields[0].value.data.currencies = selectedOptions;
+        draft.metafields[0].value.value[index].data.operator = "contains";
+        draft.metafields[0].value.value[index].data.currencies = selectedOptions;
       }),
     );
   }, []);
@@ -102,7 +102,7 @@ export default function CartCurrency({ discountValue, setDiscountValue }) {
           { label: "does not contain", value: "doesNotContain" },
         ]}
         onChange={handleOperatorChange}
-        value={discountValue.metafields[0].value.data.operator}
+        value={discountValue.metafields[0].value.value[index].data.operator}
       />
       <Autocomplete
         allowMultiple

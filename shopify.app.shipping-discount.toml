@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "fc6608be42beb6e742a146acd2822951"
-application_url = "https://motion-anyway-position-belief.trycloudflare.com"
+application_url = "https://package-croatia-pads-designers.trycloudflare.com"
 embedded = true
 name = "shipping-discount"
 handle = "shipping-discount-82"
@@ -19,9 +19,9 @@ scopes = "read_products,write_discounts,write_discounts_allocator_functions,writ
 
 [auth]
 redirect_urls = [
-  "https://motion-anyway-position-belief.trycloudflare.com/auth/callback",
-  "https://motion-anyway-position-belief.trycloudflare.com/auth/shopify/callback",
-  "https://motion-anyway-position-belief.trycloudflare.com/api/auth/callback"
+  "https://package-croatia-pads-designers.trycloudflare.com/auth/callback",
+  "https://package-croatia-pads-designers.trycloudflare.com/auth/shopify/callback",
+  "https://package-croatia-pads-designers.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

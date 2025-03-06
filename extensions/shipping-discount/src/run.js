@@ -7,12 +7,23 @@ const EMPTY_DISCOUNT = {
 export function run(input) {
   const metafield = JSON.parse(input.discountNode.metafield.value || "{}");
   
-  // Get the appropriate handler for the type
-  const handler = TYPE_HANDLERS[metafield.type];
-  
-  // If no handler exists for the type or conditions are not met, return empty discount
-  if (!handler || !handler(input.cart, metafield.data)) {
-    return EMPTY_DISCOUNT;
+  // Handle multiple conditions
+  if (metafield.operator === "AND" && Array.isArray(metafield.value)) {
+    // Check if all conditions are met
+    const allConditionsMet = metafield.value.every(condition => {
+      const handler = TYPE_HANDLERS[condition.type];
+      return handler && handler(input.cart, condition.data);
+    });
+
+    if (!allConditionsMet) {
+      return EMPTY_DISCOUNT;
+    }
+  } else {
+    // Legacy single condition handling
+    const handler = TYPE_HANDLERS[metafield.type];
+    if (!handler || !handler(input.cart, metafield.data)) {
+      return EMPTY_DISCOUNT;
+    }
   }
 
   const deliveryOptions = [];

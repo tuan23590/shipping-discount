@@ -6,7 +6,7 @@ import {
   Text,
   TextField,
 } from "@shopify/polaris";
-import { produce } from "immer";
+
 import React, { useCallback, useState } from "react";
 
 export default function DiscountValue({ discountValue, setDiscountValue }) {
@@ -35,7 +35,7 @@ export default function DiscountValue({ discountValue, setDiscountValue }) {
       <BlockStack gap="600">
         <InlineGrid columns="1fr auto">
           <Text as="h2" variant="headingSm">
-            Discount value
+            Discount value ❌
           </Text>
         </InlineGrid>
         <BlockStack gap="300">
